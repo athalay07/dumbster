@@ -13,6 +13,12 @@ public class SmtpServerFactory {
         Executors.newSingleThreadExecutor().execute(server);
         return whenReady(server);
     }
+    
+    public static SmtpServer startServer(int port, String directory) {
+        SmtpServer server = new SmtpServer(port,directory);
+        Executors.newSingleThreadExecutor().execute(server);
+        return whenReady(server);
+    }
 
     private static SmtpServer whenReady(SmtpServer server) {
         while (!server.isReady()) {

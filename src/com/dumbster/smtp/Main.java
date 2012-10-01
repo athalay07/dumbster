@@ -5,6 +5,9 @@ public class Main {
         SmtpServer server;
         if (args.length == 1) {
             server = SmtpServerFactory.startServer(port(args[0]));
+        } else if(args.length == 2){
+            String directoryToSaveMails = args[1];
+            server = SmtpServerFactory.startServer(port(args[0]), directoryToSaveMails);
         } else {
             server = SmtpServerFactory.startServer();
         }

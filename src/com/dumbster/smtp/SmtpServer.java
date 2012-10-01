@@ -30,7 +30,7 @@ public class SmtpServer implements Runnable {
     private static final int SERVER_SOCKET_TIMEOUT = 5000;
     private static final int MAX_THREADS = 10;
 
-    private volatile MailStore mailStore = new RollingMailStore();
+    private volatile MailStore mailStore;
     private volatile boolean stopped = true;
     private volatile boolean ready = false;
     private volatile boolean threaded = false;
@@ -40,6 +40,12 @@ public class SmtpServer implements Runnable {
 
     SmtpServer(int port) {
         this.port = port;
+        mailStore = new RollingMailStore();
+    }
+    
+    SmtpServer(int port, String directory) {
+        this.port = port;
+        mailStore = new FileRollingMailStore(directory);
     }
 
     public boolean isReady() {
